@@ -1,0 +1,16 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+body {
+  background-color: #000; /* Set your desired background color */
+}
+
+#myCanvas {
+  display: block; /* Make the canvas element fill the available space */
+  width: 100%; /* Set the width of the canvas element to 100% of the available space */
+  height: 100%; /* Set the height of the canvas element to 100% of the available space */
+}
