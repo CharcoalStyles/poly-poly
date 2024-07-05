@@ -16,7 +16,7 @@ canvas.height = window.innerHeight;
 const numArcs = 8;
 const arcs = [
   ...getGradientSteps([250, 200, 150], [200, 100, 50], numArcs),
-  ...getGradientSteps([200, 100, 50], [80, 80, 180], numArcs)
+  ...getGradientSteps([200, 100, 50], [80, 80, 180], numArcs + 1).slice(1)
 ].map((c, i) => {
   const synth = new Tone.Synth().toDestination();
   const sound = generateSound(i, 'minor');
@@ -82,7 +82,7 @@ function draw() {
 
     ctx.lineWidth = baseSize;
 
-    const ballVel = (2 * Math.PI * (128 - i * 2)) / 900, //segLength * 0.0075,
+    const ballVel = (2 * Math.PI * (128 - i * 3)) / 900, //segLength * 0.0075,
       distance = Math.PI + delta * ballVel,
       modDistance = distance % (Math.PI * 2);
 
