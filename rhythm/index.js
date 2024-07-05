@@ -19,7 +19,7 @@ const arcs = [
   ...getGradientSteps([200, 100, 50], [80, 80, 180], numArcs)
 ].map((c, i) => {
   const synth = new Tone.Synth().toDestination();
-  const sound = generateSound(i);
+  const sound = generateSound(i, 'minor');
   return {
     colour: c,
     direction: 1,
@@ -73,8 +73,15 @@ function draw() {
   //draw arcs
   arcs.forEach((tarc, i) => {
     const segLength = lineLength / arcs.length / 2 * (i + 1);
-    ctx.strokeStyle = tarc.colour;
+    const [r, g, b] = tarc.colour;
+
+    ctx.strokeStyle = `rgba(${r},${g},${b},1)`;
+    ctx.lineWidth = baseSize * 4;
     arc(ctx, { x: canvas.width * 0.5, y: canvas.height * 0.9 }, segLength, Math.PI, Math.PI * 2);
+
+
+    ctx.lineWidth = baseSize;
+
     const ballVel = (2 * Math.PI * (128 - i * 2)) / 900, //segLength * 0.0075,
       distance = Math.PI + delta * ballVel,
       modDistance = distance % (Math.PI * 2);
@@ -91,22 +98,8 @@ function draw() {
       x: canvas.width * 0.5 + segLength * Math.cos(modDistance * tarc.direction),
       y: canvas.height * 0.9 + segLength * Math.sin(modDistance * tarc.direction),
     }
-    ball(ctx, ballPos, baseSize * 2, tarc.colour);
 
-
-    const arcStart = {
-      x: canvas.width * 0.5 + segLength * Math.cos(Math.PI),
-      y: canvas.height * 0.9 + segLength * Math.sin(Math.PI),
-    }
-    const arcEnd = {
-      x: canvas.width * 0.5 - segLength * Math.cos(Math.PI),
-      y: canvas.height * 0.9 - segLength * Math.sin(Math.PI),
-    }
-
-    ctx.strokeStyle = tarc.colour;
-    line(ctx, { x: arcStart.x - baseSize, y: arcStart.y }, { x: arcStart.x + baseSize, y: arcStart.y });
-    line(ctx, { x: arcEnd.x - baseSize, y: arcEnd.y }, { x: arcEnd.x + baseSize, y: arcEnd.y });
-
+    ball(ctx, ballPos, baseSize * 2, `rgba(${r},${g},${b},1)`);
   });
 
   requestAnimationFrame(draw);

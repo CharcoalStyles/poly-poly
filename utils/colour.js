@@ -8,7 +8,7 @@ export const getGradientSteps = (start, end, steps) => {
   const rgb = [];
   for (let i = 0; i < steps; i++) {
     const step = i / (steps - 1);
-    rgb.push(rgbToHex(getRGB(start, end, step)));
+    rgb.push(getRGB(start, end, step));
   }
   return rgb;
 }
